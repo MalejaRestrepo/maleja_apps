@@ -38,7 +38,7 @@ st.markdown("""
 
 /* Íconos visibles */
 [data-testid="stToolbar"] button svg {
-  color: #283177 !important; /* azul oscuro */
+  color: #283177 !important;
 }
 [data-testid="stToolbar"] button:hover svg {
   color: #000a5e !important;
@@ -52,7 +52,18 @@ h1 {
   text-align: center;
   font-weight: 700;
   margin-top: 6rem;  /* separación con la barra */
-  margin-bottom: 3rem;
+  margin-bottom: 0.6rem;
+}
+
+/* --- Subtítulo --- */
+h2.subtitle {
+  color: #4955a6;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin-top: 0;
+  margin-bottom: 2.6rem;
+  letter-spacing: 0.4px;
 }
 
 /* --- Tarjeta --- */
@@ -132,8 +143,9 @@ h1 {
 </style>
 """, unsafe_allow_html=True)
 
-# --- Título ---
+# --- Título y subtítulo ---
 st.markdown("<h1>🤖 Aplicaciones de Inteligencia Artificial</h1>", unsafe_allow_html=True)
+st.markdown("<h2 class='subtitle'>Maria Alejandra Granados R</h2>", unsafe_allow_html=True)
 
 # --- Datos de apps ---
 apps = [
