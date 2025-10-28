@@ -8,28 +8,28 @@ from PIL import Image
 st.set_page_config(page_title="Aplicaciones de Inteligencia Artificial", page_icon="🤖", layout="wide")
 
 # -----------------------------
-# ESTILOS DEFINITIVOS
+# ESTILOS (sin barras fantasma, sin padding oculto)
 # -----------------------------
 st.markdown("""
 <style>
 /* Fondo general */
 [data-testid="stAppViewContainer"] {
-  background: linear-gradient(180deg, #e8eaff 0%, #f3f8ff 100%);
-  font-family: 'Poppins', sans-serif;
-  color: #1e2a55;
-  padding: 0 3rem 3rem 3rem;
+  background: linear-gradient(180deg,#e8eaff 0%,#f3f8ff 100%);
+  font-family:'Poppins',sans-serif;
+  color:#1e2a55;
+  padding: 0 2rem 3rem 2rem;
 }
 
 /* Barra superior */
 [data-testid="stHeader"] {
-  background: rgba(250, 248, 255, 0.6);
+  background: rgba(255,255,255,0.6);
   backdrop-filter: blur(10px);
-  height: 3.2rem;
-  border-bottom: 1px solid rgba(180,180,255,0.25);
+  height: 3rem;
+  border-bottom: 1px solid rgba(200,200,255,0.3);
   box-shadow: 0 2px 6px rgba(100,120,200,0.1);
 }
 
-/* Íconos de la barra superior */
+/* Íconos */
 [data-testid="stToolbar"] button {
   background-color: rgba(220,230,255,0.85);
   border-radius: 8px;
@@ -43,88 +43,92 @@ st.markdown("""
 
 /* Título principal */
 h1 {
-  color: #2b2e83;
-  text-align: center;
-  font-weight: 700;
-  margin-top: 3.5rem;
-  margin-bottom: 2.2rem;
+  color:#2b2e83;
+  text-align:center;
+  font-weight:700;
+  margin-top: 4rem;
+  margin-bottom: 2.5rem;
 }
 
-/* Tarjeta contenedora (todo adentro) */
+/* Tarjeta */
 .card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 6px 18px rgba(80, 100, 200, 0.12);
-  text-align: center;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 6px 20px rgba(80,100,200,0.12);
+  padding:20px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
   transition: all 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
 }
-.card:hover {
-  transform: scale(1.02);
-}
+.card:hover { transform: scale(1.02); }
 
-/* Imagen dentro del contenedor */
+/* Imagen */
 .card img {
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
-  margin-bottom: 14px;
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  margin-bottom:14px;
 }
 
-/* Título dentro del contenedor */
+/* Título dentro de la tarjeta */
 .card h3 {
-  color: #2e2f7f;
-  font-weight: 700;
-  font-size: 1.05rem;
-  margin: 8px 0;
+  color:#2e2f7f;
+  font-weight:700;
+  font-size:1.1rem;
+  margin-bottom:10px;
 }
 
-/* Descripción dentro del contenedor */
+/* Descripción */
 .card p {
-  color: #374785;
-  font-size: 0.93rem;
-  margin-bottom: 12px;
+  color:#374785;
+  font-size:0.93rem;
+  margin-bottom:14px;
 }
 
 /* Botón */
 a.btn {
-  display: inline-block;
-  padding: 0.5rem 1.2rem;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #a28df4, #8ed9ff);
-  color: white;
-  font-weight: 600;
-  text-decoration: none;
+  display:inline-block;
+  padding:0.5rem 1.2rem;
+  border-radius:10px;
+  background:linear-gradient(90deg,#a28df4,#8ed9ff);
+  color:white;
+  font-weight:600;
+  text-decoration:none;
   transition: all 0.2s ease;
 }
 a.btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #8b7af1, #7ed1ff);
+  transform:scale(1.05);
+  background:linear-gradient(90deg,#8b7af1,#7ed1ff);
 }
 
-/* 🚫 Elimina espacios fantasma encima de las tarjetas */
-div[data-testid="stVerticalBlockBorderWrapper"] {
+/* Elimina los wrappers blancos FANTASMA */
+[data-testid="stVerticalBlock"] > div:first-child {
   background: transparent !important;
   padding: 0 !important;
   margin: 0 !important;
   box-shadow: none !important;
   border: none !important;
 }
+[data-testid="stVerticalBlockBorderWrapper"] {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
 # -----------------------------
-# TÍTULO PRINCIPAL
+# TÍTULO
 # -----------------------------
 st.title("🤖 Aplicaciones de Inteligencia Artificial")
 
 # -----------------------------
-# DATOS DE LAS 13 APPS
+# APPS (13)
 # -----------------------------
 apps = [
     {"titulo": "Análisis de datos con agentes", "desc": "Explora cómo los agentes de IA analizan conjuntos de datos.", "img": "cinna5.jpeg", "url": "https://csaj2dyg9tfegdnmzazoku.streamlit.app/"},
@@ -143,10 +147,9 @@ apps = [
 ]
 
 # -----------------------------
-# TARJETAS EN CONTENEDORES (ya sin espacios blancos)
+# TARJETAS DENTRO DE CONTENEDORES
 # -----------------------------
 cols = st.columns(3, gap="large")
-
 for i, app in enumerate(apps):
     with cols[i % 3]:
         with st.container():
