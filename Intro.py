@@ -129,9 +129,9 @@ def show_card(slot, app):
     with slot:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader(app["titulo"])
-        # Cargar imagen con fallback
+        # ✅ Reemplazo del parámetro para evitar el warning
         if os.path.exists(app["img"]):
-            st.image(Image.open(app["img"]), use_column_width=True)
+            st.image(Image.open(app["img"]), use_container_width=True)
         else:
             st.info(f"Sube **{app['img']}** para mostrar la miniatura.")
         st.write(app["desc"])
