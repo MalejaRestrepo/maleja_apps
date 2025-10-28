@@ -45,95 +45,102 @@ apps = [
     {
         "titulo": "Análisis de datos con agentes",
         "desc":   "Explora cómo los agentes de IA analizan conjuntos de datos.",
-        "img":    "data_analisis.png",
+        "img":    "cinna5.jpeg",
         "url":    "https://csaj2dyg9tfegdnmzazoku.streamlit.app/"
     },
     {
         "titulo": "App de presentación (Intro)",
         "desc":   "Bienvenida y explicación del ecosistema de apps.",
-        "img":    "OIG7.jpg",
+        "img":    "cinna6.jpeg",
         "url":    "https://app1intro-magranador.streamlit.app/"
     },
     {
         "titulo": "Control por Voz (MQTT)",
         "desc":   "Envía comandos por voz a sistemas conectados.",
-        "img":    "OIG6.jpg",
+        "img":    "cinna7.jpeg",
         "url":    "https://ctrlvoice-nkp8gyiaogmmye6j8amnpv.streamlit.app/"
     },
     {
         "titulo": "Reconocimiento de Dibujos",
         "desc":   "Clasificación/interpretación de trazos a mano alzada.",
-        "img":    "OIG5.jpg",
+        "img":    "cinna8.jpeg",
         "url":    "https://drawrecog-3tp8ojz2qxxpz7vms6nvqm.streamlit.app/"
     },
     {
         "titulo": "Texto a Voz (TTS)",
         "desc":   "Convierte texto en audio natural.",
-        "img":    "txt_to_audio2.png",
+        "img":    "cinna9.jpeg",
         "url":    "https://imm1audio-magranador.streamlit.app/"
     },
     {
         "titulo": "Transcriptor Audio/Video",
         "desc":   "Convierte audio o video a texto automáticamente.",
-        "img":    "OIG3.jpg",
+        "img":    "cinna10.jpeg",
         "url":    "https://ocr-audio-ctjjrhqotjwqqgzrvccmaa.streamlit.app/"
     },
     {
         "titulo": "Envío MQTT (Remoto)",
-        "desc":   "Publica mensajes/valores a dispositivos externos.",
-        "img":    "OIG6.jpg",
+        "desc":   "Publica mensajes o valores a dispositivos externos.",
+        "img":    "cinna11.jpeg",
         "url":    "https://sendcmqtt-zgsx37r5kvsr7jhhb8nenq.streamlit.app/"
     },
     {
         "titulo": "Tablero Inteligente (Canvas IA)",
         "desc":   "Dibuja en lienzo y deja que la IA lo interprete.",
-        "img":    "OIG4.jpg",
+        "img":    "cinna12.jpeg",
         "url":    "https://tablero-naqjzhqlam5e8tjrfjr3pa.streamlit.app/"
     },
     {
         "titulo": "Clasificador / ML",
         "desc":   "Modelos de aprendizaje automático para clasificación.",
-        "img":    "OIG4.jpg",
+        "img":    "cinna13.jpeg",
         "url":    "https://tdfesp-pcq8forxath5k242hitumc.streamlit.app/"
     },
     {
         "titulo": "Entrenamiento de Modelos",
         "desc":   "Prueba tu modelo entrenado directamente en la app.",
-        "img":    "OIG5.jpg",
+        "img":    "cinna14.jpeg",
         "url":    "https://rw3hbefgecoajdktfhogkq.streamlit.app/"
     },
     {
         "titulo": "Detección de Objetos (YOLOv5)",
         "desc":   "Detecta objetos en imágenes en tiempo real.",
-        "img":    "txt_to_audio.png",
+        "img":    "cinna15.jpeg",
         "url":    "https://yolov5-ayderaxxdugnijcaux835v.streamlit.app/"
     },
     {
         "titulo": "Chat con PDF (RAG)",
         "desc":   "Haz preguntas a tus PDFs y obtén respuestas contextuales.",
-        "img":    "Chat_pdf.png",
+        "img":    "cinna16.jpeg",
         "url":    "https://chatpdf-hdadat82ittwff68s5nij8.streamlit.app/"
     },
     {
         "titulo": "Traductor Voz ↔ Texto",
         "desc":   "Escucha, traduce y reproduce el resultado.",
-        "img":    "OIG8.jpg",
+        "img":    "cinna17.jpeg",
         "url":    "https://traductor-a6xdrnuxmuxdmjhr3padyv.streamlit.app/"
     },
 ]
 
 # -----------------------------
-# Helpers
+# Helper para tarjetas
 # -----------------------------
 def show_card(slot, app):
     with slot:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.subheader(app["titulo"])
-        # ✅ Reemplazo del parámetro para evitar el warning
         if os.path.exists(app["img"]):
             st.image(Image.open(app["img"]), use_container_width=True)
         else:
-            st.info(f"Sube **{app['img']}** para mostrar la miniatura.")
+            # Fondo degradado si falta la imagen
+            st.markdown("""
+                <div style='height:140px; border-radius:12px;
+                            background:linear-gradient(90deg,#e8ebff,#f3f5ff);
+                            display:flex; align-items:center; justify-content:center;
+                            color:#5c6bc0; font-weight:600; font-size:14px;'>
+                    Imagen no disponible
+                </div>
+            """, unsafe_allow_html=True)
         st.write(app["desc"])
         st.markdown(f"<a class='btn' href='{app['url']}' target='_blank'>Abrir app</a>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
