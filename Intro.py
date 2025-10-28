@@ -1,141 +1,146 @@
+import os
 import streamlit as st
 from PIL import Image
 
-# --- CONFIGURACIÓN GENERAL ---
-st.set_page_config(
-    page_title="Aplicaciones de Inteligencia Artificial",
-    page_icon="🤖",
-    layout="wide"
-)
+# -----------------------------
+# Configuración general
+# -----------------------------
+st.set_page_config(page_title="Aplicaciones de Inteligencia Artificial", page_icon="🤖", layout="wide")
 
-# --- ESTILO VISUAL ---
+# -----------------------------
+# Estilos (pasteles fríos)
+# -----------------------------
 st.markdown("""
-    <style>
-    [data-testid="stAppViewContainer"] {
-        background: linear-gradient(180deg, #e8eaff 0%, #f3f8ff 100%);
-        font-family: 'Poppins', sans-serif;
-        color: #1e2a55;
-    }
-    h1, h2, h3 {
-        color: #3a3d9a;
-        text-align: center;
-        font-weight: 700;
-    }
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-    .stImage img {
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .stButton>button {
-        background: linear-gradient(90deg, #a28df4, #8ed9ff);
-        border: none;
-        color: white;
-        font-weight: 600;
-        border-radius: 10px;
-        padding: 0.4rem 1.2rem;
-        transition: 0.3s;
-    }
-    .stButton>button:hover {
-        transform: scale(1.03);
-        background: linear-gradient(90deg, #8b7af1, #7ed1ff);
-    }
-    </style>
+<style>
+[data-testid="stAppViewContainer"]{
+  background: linear-gradient(180deg,#e8eaff 0%,#f3f8ff 100%);
+  font-family:'Poppins',sans-serif; color:#1e2a55;
+}
+h1,h2,h3{color:#3a3d9a; text-align:center; font-weight:700;}
+.block-container{padding-top:2rem; padding-bottom:2rem;}
+.stImage img{border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.card{background:#ffffff; border:1px solid #cfe0ff; border-radius:14px; padding:14px;
+      box-shadow:0 8px 18px rgba(62,76,131,.08);}
+a.btn{display:inline-block; margin-top:.35rem; padding:.45rem 1rem; border-radius:10px;
+      background:linear-gradient(90deg,#a28df4,#8ed9ff); color:white; font-weight:600; text-decoration:none;}
+a.btn:hover{transform:scale(1.03); background:linear-gradient(90deg,#8b7af1,#7ed1ff);}
+</style>
 """, unsafe_allow_html=True)
 
-# --- TÍTULO PRINCIPAL ---
 st.title("🤖 Aplicaciones de Inteligencia Artificial")
 
-# --- SIDEBAR ---
+# Sidebar
 with st.sidebar:
-    st.subheader("🌐 Aplicaciones con Inteligencia Artificial")
-    st.write("""
-    La inteligencia artificial permite mejorar la toma de decisiones con el uso de datos,
-    automatizar tareas rutinarias y proporcionar análisis avanzados en tiempo real,
-    logrando mayor eficiencia y precisión en diversos campos.
-    """)
-    url_ia = "https://sites.google.com/view/aplicacionesdeia/inicio"
-    st.markdown(f"📘 [Ejercicios prácticos y páginas complementarias]({url_ia})")
+    st.subheader("🌐 Sobre estas aplicaciones")
+    st.write(
+        "La inteligencia artificial mejora la toma de decisiones con datos, automatiza tareas y "
+        "ofrece análisis avanzados en tiempo real para aumentar la eficiencia y la precisión."
+    )
+    st.markdown("📘 [Ejercicios y páginas complementarias](https://sites.google.com/view/aplicacionesdeia/inicio)")
 
-# --- COLUMNAS ---
-col1, col2, col3 = st.columns(3, gap="large")
+# -----------------------------
+# Datos de las apps (13)
+# -----------------------------
+apps = [
+    {
+        "titulo": "Análisis de datos con agentes",
+        "desc":   "Explora cómo los agentes de IA analizan conjuntos de datos.",
+        "img":    "data_analisis.png",
+        "url":    "https://csaj2dyg9tfegdnmzazoku.streamlit.app/"
+    },
+    {
+        "titulo": "App de presentación (Intro)",
+        "desc":   "Bienvenida y explicación del ecosistema de apps.",
+        "img":    "OIG7.jpg",
+        "url":    "https://app1intro-magranador.streamlit.app/"
+    },
+    {
+        "titulo": "Control por Voz (MQTT)",
+        "desc":   "Envía comandos por voz a sistemas conectados.",
+        "img":    "OIG6.jpg",
+        "url":    "https://ctrlvoice-nkp8gyiaogmmye6j8amnpv.streamlit.app/"
+    },
+    {
+        "titulo": "Reconocimiento de Dibujos",
+        "desc":   "Clasificación/interpretación de trazos a mano alzada.",
+        "img":    "OIG5.jpg",
+        "url":    "https://drawrecog-3tp8ojz2qxxpz7vms6nvqm.streamlit.app/"
+    },
+    {
+        "titulo": "Texto a Voz (TTS)",
+        "desc":   "Convierte texto en audio natural.",
+        "img":    "txt_to_audio2.png",
+        "url":    "https://imm1audio-magranador.streamlit.app/"
+    },
+    {
+        "titulo": "Transcriptor Audio/Video",
+        "desc":   "Convierte audio o video a texto automáticamente.",
+        "img":    "OIG3.jpg",
+        "url":    "https://ocr-audio-ctjjrhqotjwqqgzrvccmaa.streamlit.app/"
+    },
+    {
+        "titulo": "Envío MQTT (Remoto)",
+        "desc":   "Publica mensajes/valores a dispositivos externos.",
+        "img":    "OIG6.jpg",
+        "url":    "https://sendcmqtt-zgsx37r5kvsr7jhhb8nenq.streamlit.app/"
+    },
+    {
+        "titulo": "Tablero Inteligente (Canvas IA)",
+        "desc":   "Dibuja en lienzo y deja que la IA lo interprete.",
+        "img":    "OIG4.jpg",
+        "url":    "https://tablero-naqjzhqlam5e8tjrfjr3pa.streamlit.app/"
+    },
+    {
+        "titulo": "Clasificador / ML",
+        "desc":   "Modelos de aprendizaje automático para clasificación.",
+        "img":    "OIG4.jpg",
+        "url":    "https://tdfesp-pcq8forxath5k242hitumc.streamlit.app/"
+    },
+    {
+        "titulo": "Entrenamiento de Modelos",
+        "desc":   "Prueba tu modelo entrenado directamente en la app.",
+        "img":    "OIG5.jpg",
+        "url":    "https://rw3hbefgecoajdktfhogkq.streamlit.app/"
+    },
+    {
+        "titulo": "Detección de Objetos (YOLOv5)",
+        "desc":   "Detecta objetos en imágenes en tiempo real.",
+        "img":    "txt_to_audio.png",
+        "url":    "https://yolov5-ayderaxxdugnijcaux835v.streamlit.app/"
+    },
+    {
+        "titulo": "Chat con PDF (RAG)",
+        "desc":   "Haz preguntas a tus PDFs y obtén respuestas contextuales.",
+        "img":    "Chat_pdf.png",
+        "url":    "https://chatpdf-hdadat82ittwff68s5nij8.streamlit.app/"
+    },
+    {
+        "titulo": "Traductor Voz ↔ Texto",
+        "desc":   "Escucha, traduce y reproduce el resultado.",
+        "img":    "OIG8.jpg",
+        "url":    "https://traductor-a6xdrnuxmuxdmjhr3padyv.streamlit.app/"
+    },
+]
 
-# --- COLUMNA 1 ---
-with col1:
-    st.subheader("🎨 Tablero Inteligente")
-    image = Image.open('OIG4.jpg')
-    st.image(image, width=200)
-    st.write("Dibuja en un lienzo y deja que la IA interprete tu boceto.")
-    st.markdown("[Abrir app](https://tablero-naqjzhqlam5e8tjrfjr3pa.streamlit.app/)")
+# -----------------------------
+# Helpers
+# -----------------------------
+def show_card(slot, app):
+    with slot:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.subheader(app["titulo"])
+        # Cargar imagen con fallback
+        if os.path.exists(app["img"]):
+            st.image(Image.open(app["img"]), use_column_width=True)
+        else:
+            st.info(f"Sube **{app['img']}** para mostrar la miniatura.")
+        st.write(app["desc"])
+        st.markdown(f"<a class='btn' href='{app['url']}' target='_blank'>Abrir app</a>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.subheader("🎧 Texto a voz (TTS)")
-    image = Image.open('txt_to_audio2.png')
-    st.image(image, width=200)
-    st.write("Convierte texto en voz natural con inteligencia artificial.")
-    st.markdown("[Abrir app](https://imm1audio-magranador.streamlit.app/)")
-
-    st.subheader("🗣️ Voz a texto (Traductor por voz)")
-    image = Image.open('OIG8.jpg')
-    st.image(image, width=200)
-    st.write("Traduce lo que dices y escucha el resultado en otro idioma.")
-    st.markdown("[Abrir app](https://traductor-a6xdrnuxmuxdmjhr3padyv.streamlit.app/)")
-
-    st.subheader("🧩 Control por voz")
-    image = Image.open('OIG6.jpg')
-    st.image(image, width=200)
-    st.write("Controla dispositivos físicos mediante comandos hablados.")
-    st.markdown("[Abrir app](https://ctrlvoice-nkp8gyiaogmmye6j8amnpv.streamlit.app/)")
-
-# --- COLUMNA 2 ---
-with col2:
-    st.subheader("🎯 Reconocimiento de dibujos")
-    image = Image.open('OIG5.jpg')
-    st.image(image, width=200)
-    st.write("Reconocimiento y clasificación de formas dibujadas a mano.")
-    st.markdown("[Abrir app](https://drawrecog-3tp8ojz2qxxpz7vms6nvqm.streamlit.app/)")
-
-    st.subheader("📷 Análisis de imágenes (YOLOv5)")
-    image = Image.open('txt_to_audio.png')
-    st.image(image, width=200)
-    st.write("Detecta objetos en imágenes usando modelos de visión por computadora.")
-    st.markdown("[Abrir app](https://yolov5-ayderaxxdugnijcaux835v.streamlit.app/)")
-
-    st.subheader("🧮 Análisis de datos con agentes")
-    image = Image.open('data_analisis.png')
-    st.image(image, width=200)
-    st.write("Explora cómo los agentes de IA analizan grandes volúmenes de datos.")
-    st.markdown("[Abrir app](https://csaj2dyg9tfegdnmzazoku.streamlit.app/)")
-
-    st.subheader("💬 Chat con documentos (RAG / PDF)")
-    image = Image.open('Chat_pdf.png')
-    st.image(image, width=200)
-    st.write("Haz preguntas sobre tus documentos PDF y obtén respuestas inteligentes.")
-    st.markdown("[Abrir app](https://chatpdf-hdadat82ittwff68s5nij8.streamlit.app/)")
-
-# --- COLUMNA 3 ---
-with col3:
-    st.subheader("🎥 Transcriptor de audio y video")
-    image = Image.open('OIG3.jpg')
-    st.image(image, width=200)
-    st.write("Convierte automáticamente tus archivos multimedia en texto.")
-    st.markdown("[Abrir app](https://ocr-audio-ctjjrhqotjwqqgzrvccmaa.streamlit.app/)")
-
-    st.subheader("🔌 Envío MQTT (Control remoto)")
-    image = Image.open('OIG6.jpg')
-    st.image(image, width=200)
-    st.write("Envía comandos o datos analógicos a sistemas físicos conectados.")
-    st.markdown("[Abrir app](https://sendcmqtt-zgsx37r5kvsr7jhhb8nenq.streamlit.app/)")
-
-    st.subheader("📈 Entrenamiento de modelos")
-    image = Image.open('OIG5.jpg')
-    st.image(image, width=200)
-    st.write("Prueba tu modelo entrenado directamente en la aplicación.")
-    st.markdown("[Abrir app](https://rw3hbefgecoajdktfhogkq.streamlit.app/)")
-
-    st.subheader("🧠 Clasificador y aprendizaje automático")
-    image = Image.open('OIG4.jpg')
-    st.image(image, width=200)
-    st.write("Explora modelos de clasificación y predicción inteligentes.")
-    st.markdown("[Abrir app](https://tdfesp-pcq8forxath5k242hitumc.streamlit.app/)")
+# -----------------------------
+# Render en 3 columnas (13 items)
+# -----------------------------
+cols = st.columns(3, gap="large")
+for i, app in enumerate(apps):
+    show_card(cols[i % 3], app)
